@@ -1,0 +1,18 @@
+x=0;  %approximating exp(x) at x=0
+r=1;  %initializing loop count
+h=[]; %creates empty array for loop iteration
+y=[];
+
+while r < 16
+    h(r)=10^(-r);
+    y(r)=1-divdiffwd(x,h(r));
+    r = r+1;
+end
+
+plot(log(h),log(y),'-')
+ylabel ('Log of Error'); %y-axis label
+xlabel ('Log of Divided Difference'); %x-axis label
+
+function dfdx=divdiffwd(x,h)
+dfdx=(exp(x+h)-exp(x))/h; %estimator based on question prompt
+end
