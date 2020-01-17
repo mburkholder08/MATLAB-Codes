@@ -1,0 +1,51 @@
+A = [10000 9999; 9999 9998];
+
+b = [19999; 19997];
+
+disp(A)
+
+x = A \ b;
+
+disp(x)
+
+b_prime = [19998.999; 19997.001];
+
+x_prime = A \ b_prime;
+
+disp(x_prime)
+
+disp((norm(x_prime-x))/(norm(x)))
+
+b_prime_prime = [19998.99; 19997.01];
+
+x_prime_prime = A \ b_prime_prime;
+
+disp(x_prime_prime)
+
+disp((norm(x_prime_prime-x))/(norm(x)))
+
+K = norm(A,'fro');
+
+disp(K)
+
+
+%%% PART C %%%
+
+H = hilb(4);
+Frob_norm = norm(H,'fro');
+
+disp(Frob_norm)
+
+H_prime = hilb(12);
+Frob_norm_prime = norm(H_prime, 'fro');
+
+disp(Frob_norm_prime)
+
+
+%%% CODE FOR FROB NORM %%%
+
+function M = frobnorm(x,y,z)
+calc = 0
+for i = 1:y
+    for j = 1:z
+        calc = sqrt( sum(sum(A.^2))
