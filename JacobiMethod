@@ -1,0 +1,30 @@
+%% The Jacobi Method
+clc; clear;
+
+%% Defining A,b and tolerance
+A = [6 2 2 1; 2 5 1 1; 2 1 7 2; 1 1 2 8];
+b = [10;18;14;21];
+tol = 1e-4; % up to 4 decimal places
+x0 = zeros(size(b)); % Initial guess
+k = 0; % Zero iteration
+disp('For k = 0: '); disp(x0')
+
+%% Jacobi iteration starts here
+err = inf; % initializing error
+D = diag(diag(A)); % Diagonal Matrix
+
+while err > tol % The condition to enter the while loop
+    % Updates Iteration
+    k = k + 1;
+    % Calculating the next term
+    x1 = D\((D-A)*x0+b);
+    % Displays the result
+    disp("For k = " + num2str(k))
+    disp(x1');
+    % Checks the error
+    err = norm(x0-x1);
+    % Replaces x0 by x1
+    x0 = x1;
+end
+
+fprintf('It takes %d iterations for the Jacobi Iteration to converge.\n',k)
