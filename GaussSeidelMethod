@@ -1,0 +1,50 @@
+%% The Gauss-Seidel Method
+clc; clear;
+
+%% Defining A,b and tolerance
+A = [6 2 2 1; 2 5 1 1; 2 1 7 2; 1 1 2 8];
+b = [10;18;14;21];
+tol = 1e-4; % up to 4 decimal places
+x0 = zeros(size(b)); % Initial guess
+k = 0; % Zero iteration
+disp('For k = 0: '); disp(x0')
+
+%% Jacobi iteration starts here
+err = inf; % initializing error
+
+while err > tol % The condition to enter the while loop
+    % Updates Iteration
+    k = k + 1;
+    % Initializes next iteration x
+    x1 = zeros(size(b));
+    % Calculates all the variables
+    for i = 1:length(b)
+        % Calculates sum for the terms after the ith term
+        sum1 = 0;
+        if i ~= length(b)
+            for j = i+1:length(b)
+                sum1 = sum1 + A(i,j)*x0(j);
+            end
+        end
+        
+        % Calculating sum for the terms before the ith term
+        sum2 = 0;
+        if i ~= 1
+            for j = 1:i-1
+                sum2 = sum2 + A(i,j)*x1(j);
+            end
+        end
+        
+        % Calculates the term
+        x1(i) = 1/A(i,i)*(b(i)-sum1-sum2);
+    end
+    % Calculates the error
+    err = norm(x1 - x0);
+    % Replaces x1 with x0
+    x0 = x1;
+    % Displays the result
+    disp("For k = " + num2str(k))
+    disp(x1');
+end
+
+fprintf('It takes %d iterations for the Gauss Seidel to converge.\n',k)
